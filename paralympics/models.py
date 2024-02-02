@@ -7,7 +7,15 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
     email: Mapped[str] = mapped_column(db.Text, unique=True, nullable=False)
     password: Mapped[str] = mapped_column(db.Text, unique=True, nullable=False)
-
+    def __init__(self, email: str, password: str):
+        """
+        Create a new User object using hashing the plain text password.
+        :type password_string: str
+        :type email: str
+        :returns None
+        """
+        self.email = email
+        self.password = password
 # Adapted from https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/quickstart/#define-models
 from typing import List
 from sqlalchemy import Integer, String, ForeignKey
@@ -49,3 +57,5 @@ class Event(db.Model):
     participants_f: Mapped[int] = mapped_column(db.Integer, nullable=True)
     participants: Mapped[int] = mapped_column(db.Integer, nullable=True)
     highlights: Mapped[str] = mapped_column(db.Text, nullable=True)
+
+
